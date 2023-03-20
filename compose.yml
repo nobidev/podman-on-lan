@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  p2l:
+    image: nginx
+    configs:
+      - source: nginx_conf
+        target: /etc/nginx/nginx.conf
+    volumes:
+      - type: bind
+        source: /var/run/podman/podman.sock
+        target: /var/run/podman/podman.sock
+    ports:
+      - target: 2475
+        published: 2475
+        mode: host
+    deploy:
+      mode: global
+configs:
+  nginx_conf:
+    file: nginx.conf
